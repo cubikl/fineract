@@ -243,17 +243,17 @@ bootJar {
 
 jib {
     from {
-        image = 'azul/zulu-openjdk-alpine:17'
+        image = 'azul/zulu-openjdk-alpine:17-latest'
         platforms {
             platform {
-                architecture = System.getProperty("os.arch").equals("aarch64")?"arm64":"amd64"
+                architecture = 'arm64'
                 os = 'linux'
             }
         }
     }
 
     to {
-        image = 'fineract'
+        image = 'cubikl/fineract'
         tags = [
             "${project.version}",
             'latest'

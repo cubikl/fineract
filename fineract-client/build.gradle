@@ -1,3 +1,5 @@
+import org.openapitools.generator.gradle.plugin.tasks.GenerateTask
+
 /**
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements. See the NOTICE file
@@ -26,7 +28,7 @@ apply from: 'dependencies.gradle'
 openApiMeta {
     generatorName = 'Fineract'
     packageName = 'org.apache.fineract.client'
-    outputFolder = "$buildDir/meta".toString()
+    outputFolder = layout.buildDirectory.dir("meta").get().toString()
     // trick to make sure fineract.json is generated first
 }
 
@@ -35,24 +37,24 @@ openApiValidate {
     recommend = true
 }
 
-task buildJavaSdk(type: org.openapitools.generator.gradle.plugin.tasks.GenerateTask) {
+tasks.register('buildJavaSdk', GenerateTask) {
     generatorName = 'java'
     verbose = false
     validateSpec = false
     skipValidateSpec = true
     inputSpec = "file:///$swaggerFile"
-    outputDir = "$buildDir/generated/temp-java".toString()
+    outputDir = layout.buildDirectory.dir("generated/temp-java").get().toString()
     templateDir = "$projectDir/src/main/resources/templates/java"
     groupId = 'org.apache.fineract'
     apiPackage = 'org.apache.fineract.client.services'
     invokerPackage = 'org.apache.fineract.client'
     modelPackage = 'org.apache.fineract.client.models'
     configOptions = [
-        dateLibrary: 'java8',
-        useRxJava2: 'false',
-        library: 'retrofit2',
+        dateLibrary            : 'java8',
+        useRxJava2             : 'false',
+        library                : 'retrofit2',
         hideGenerationTimestamp: 'true',
-        containerDefaultToNull: 'true'
+        containerDefaultToNull : 'true'
     ]
     generateModelTests = false
     generateApiTests = false
@@ -60,58 +62,58 @@ task buildJavaSdk(type: org.openapitools.generator.gradle.plugin.tasks.GenerateT
     dependsOn(':fineract-provider:resolve')
 }
 
-task buildTypescriptAngularSdk(type: org.openapitools.generator.gradle.plugin.tasks.GenerateTask){
+tasks.register('buildTypescriptAngularSdk', GenerateTask) {
     generatorName = 'typescript-angular'
     verbose = false
     validateSpec = false
     skipValidateSpec = true
     inputSpec = "file:///$swaggerFile"
-    outputDir = "$buildDir/generated/typescript".toString()
+    outputDir = layout.buildDirectory.dir("generated/typescript").get().toString()
     apiPackage = 'apache-fineract-client/services'
     invokerPackage = 'apache-fineract-client/invoker'
     modelPackage = 'apache-fineract-client/models'
     configOptions = [
-        apiModulePrefix: 'apacheFineractClient',
+        apiModulePrefix    : 'apacheFineractClient',
         configurationPrefix: 'apacheFineractClient',
-        ngVersion: '12.0.0',
-        npmName: '@apache/fineract-client',
-        npmRepository: "${npmRepository}"
+        ngVersion          : '12.0.0',
+        npmName            : '@apache/fineract-client',
+        npmRepository      : "${npmRepository}"
     ]
     dependsOn(':fineract-provider:resolve')
 }
 
-task buildAsciidoc(type: org.openapitools.generator.gradle.plugin.tasks.GenerateTask){
+tasks.register('buildAsciidoc', GenerateTask) {
     generatorName = 'asciidoc'
     verbose = false
     validateSpec = false
     skipValidateSpec = true
     inputSpec = "file:///$swaggerFile"
-    outputDir = "$buildDir/generated/asciidoc".toString()
+    outputDir = layout.buildDirectory.dir("generated/asciidoc").get().toString()
     apiPackage = 'org.apache.fineract.client.services'
     invokerPackage = 'org.apache.fineract.client'
     modelPackage = 'org.apache.fineract.client.models'
     configOptions = [
-        appName: 'Apache Fineract REST API',
-        appDescription: '''Apache Fineract is a secure, multi-tenanted microfinance platform.
+        appName         : 'Apache Fineract REST API',
+        appDescription  : '''Apache Fineract is a secure, multi-tenanted microfinance platform.
             The goal of the Apache Fineract API is to empower developers to build apps on top of the Apache Fineract Platform.
             The https://cui.fineract.dev[reference app] (username: mifos, password: password) works on the same demo tenant as the interactive links in this documentation.
             Until we complete the new REST API documentation you still have the legacy documentation available https://fineract.apache.org/legacy-docs/apiLive.htm[here].
             Please check https://fineract.apache.org/docs/current[the Fineract documentation] for more information.''',
         headerAttributes: 'false',
-        infoEmail: 'dev@fineract.apache.org',
-        infoUrl: 'https://fineract.apache.org',
-        licenseInfo: 'Apache 2.0',
-        licenseUrl: 'http://www.apache.org/licenses/LICENSE-2.0.html',
+        infoEmail       : 'dev@fineract.apache.org',
+        infoUrl         : 'https://fineract.apache.org',
+        licenseInfo     : 'Apache 2.0',
+        licenseUrl      : 'http://www.apache.org/licenses/LICENSE-2.0.html',
         useMethodAndPath: 'true'
     ]
     dependsOn(':fineract-provider:resolve')
 }
 
-task cleanupGeneratedJavaFiles() {
+tasks.register('cleanupGeneratedJavaFiles') {
     doLast {
         copy {
-            from "$buildDir/generated/temp-java".toString()
-            into "$buildDir/generated/java".toString()
+            from layout.buildDirectory.dir("generated/temp-java").get().toString()
+            into layout.buildDirectory.dir("generated/java").get().toString()
             filter { line ->
                 line
                         // This is a temporary step to get rid of joda imports in the generated code
@@ -137,7 +139,7 @@ java {
     targetCompatibility = JavaVersion.VERSION_1_8
 }
 
-tasks.withType(JavaCompile) {
+tasks.withType(JavaCompile).configureEach {
     // the generated code in build/generated/java/src/main/java/org/apache/fineract/client/auth/OAuthOkHttpClient.java#L71 currently uses deprecated RequestBody.create(MediaType,String)
     // TODO FINERACT-1247 why does this not work:
     //   options.compilerArgs -= ["-Xlint:deprecation"]
@@ -155,7 +157,7 @@ test {
     useJUnitPlatform()
 }
 
-sourceSets.main.java.srcDir new File(buildDir, "generated/java/src/main/java")
+sourceSets.main.java.srcDir layout.buildDirectory.dir("generated/java/src/main/java").get().asFile
 
 // NOTE: Gradle suggested these dependencies
 licenseFormatMain.dependsOn buildJavaSdk

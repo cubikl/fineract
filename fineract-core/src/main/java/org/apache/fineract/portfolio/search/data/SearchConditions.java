@@ -18,6 +18,7 @@
  */
 package org.apache.fineract.portfolio.search.data;
 
+import java.util.Locale;
 import org.apache.fineract.portfolio.search.SearchConstants.SearchSupportedResources;
 
 public class SearchConditions {
@@ -37,17 +38,17 @@ public class SearchConditions {
         this.searchResource = searchResource;
         this.exactMatch = exactMatch;
         this.clientSearch = null == searchResource
-                || searchResource.toLowerCase().contains(SearchSupportedResources.CLIENTS.name().toLowerCase());
+                || searchResource.toLowerCase(Locale.ENGLISH).contains(SearchSupportedResources.CLIENTS.name().toLowerCase(Locale.ENGLISH));
         this.groupSearch = null == searchResource
-                || searchResource.toLowerCase().contains(SearchSupportedResources.GROUPS.name().toLowerCase());
+                || searchResource.toLowerCase(Locale.ENGLISH).contains(SearchSupportedResources.GROUPS.name().toLowerCase(Locale.ENGLISH));
         this.loanSeach = null == searchResource
-                || searchResource.toLowerCase().contains(SearchSupportedResources.LOANS.name().toLowerCase());
+                || searchResource.toLowerCase(Locale.ENGLISH).contains(SearchSupportedResources.LOANS.name().toLowerCase(Locale.ENGLISH));
         this.savingSeach = null == searchResource
-                || searchResource.toLowerCase().contains(SearchSupportedResources.SAVINGS.name().toLowerCase());
+                || searchResource.toLowerCase(Locale.ENGLISH).contains(SearchSupportedResources.SAVINGS.name().toLowerCase(Locale.ENGLISH));
         this.shareSeach = null == searchResource
-                || searchResource.toLowerCase().contains(SearchSupportedResources.SHARES.name().toLowerCase());
-        this.clientIdentifierSearch = null == searchResource
-                || searchResource.toLowerCase().contains(SearchSupportedResources.CLIENTIDENTIFIERS.name().toLowerCase());
+                || searchResource.toLowerCase(Locale.ENGLISH).contains(SearchSupportedResources.SHARES.name().toLowerCase(Locale.ENGLISH));
+        this.clientIdentifierSearch = null == searchResource || searchResource.toLowerCase(Locale.ENGLISH)
+                .contains(SearchSupportedResources.CLIENTIDENTIFIERS.name().toLowerCase(Locale.ENGLISH));
     }
 
     public SearchConditions(final String searchQueryParam, final String searchResource, final Boolean clientSearch,

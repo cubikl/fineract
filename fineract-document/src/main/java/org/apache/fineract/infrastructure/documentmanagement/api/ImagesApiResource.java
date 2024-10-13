@@ -211,7 +211,7 @@ public class ImagesApiResource {
 
         @Override
         public String toString() {
-            return name().toString().toLowerCase();
+            return name().toLowerCase();
         }
     }
 
