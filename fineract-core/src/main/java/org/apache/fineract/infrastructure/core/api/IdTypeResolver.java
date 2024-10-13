@@ -19,6 +19,7 @@
 package org.apache.fineract.infrastructure.core.api;
 
 import jakarta.validation.constraints.NotNull;
+import java.util.Locale;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

@@ -22,6 +22,7 @@ import com.google.common.collect.ImmutableList;
 import jakarta.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.sql.JDBCType;
+import java.util.Locale;
 import org.apache.fineract.infrastructure.core.exception.PlatformServiceUnavailableException;
 
 public enum JdbcJavaType {
