@@ -19,6 +19,7 @@
 package org.apache.fineract.infrastructure.documentmanagement.service;
 
 import java.io.InputStream;
+import java.util.Locale;
 import org.apache.fineract.infrastructure.core.data.CommandProcessingResult;
 import org.apache.fineract.infrastructure.core.exception.ErrorHandler;
 import org.apache.fineract.infrastructure.documentmanagement.command.DocumentCommand;
@@ -183,7 +184,7 @@ public class DocumentWritePlatformServiceJpaRepositoryImpl implements DocumentWr
 
         @Override
         public String toString() {
-            return name().toString().toLowerCase();
+            return name().toString().toLowerCase(Locale.ENGLISH);
         }
     }
 }

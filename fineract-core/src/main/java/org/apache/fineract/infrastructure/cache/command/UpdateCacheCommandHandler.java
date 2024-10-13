@@ -20,12 +20,7 @@ package org.apache.fineract.infrastructure.cache.command;
 
 import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.fineract.commands.annotation.CommandType;
 import org.apache.fineract.commands.handler.NewCommandSourceHandler;
@@ -70,7 +65,7 @@ public class UpdateCacheCommandHandler implements NewCommandSourceHandler {
 
         final List<ApiParameterError> dataValidationErrors = new ArrayList<>();
         final DataValidatorBuilder baseDataValidator = new DataValidatorBuilder(dataValidationErrors)
-                .resource(CacheApiConstants.RESOURCE_NAME.toLowerCase());
+                .resource(CacheApiConstants.RESOURCE_NAME.toLowerCase(Locale.ENGLISH));
 
         final int cacheTypeEnum = command.integerValueSansLocaleOfParameterNamed(CacheApiConstants.CACHE_TYPE_PARAMETER);
         baseDataValidator.reset().parameter(CacheApiConstants.CACHE_TYPE_PARAMETER).value(Integer.valueOf(cacheTypeEnum)).notNull()

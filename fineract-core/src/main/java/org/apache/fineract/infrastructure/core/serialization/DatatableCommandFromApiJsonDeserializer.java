@@ -62,10 +62,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.reflect.TypeToken;
 import jakarta.validation.constraints.NotNull;
 import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.fineract.infrastructure.core.data.ApiParameterError;
 import org.apache.fineract.infrastructure.core.data.DataValidatorBuilder;
@@ -330,7 +327,7 @@ public class DatatableCommandFromApiJsonDeserializer {
     }
 
     private static JdbcJavaType mapApiTypeToJdbcType(@NotNull String apiType, boolean fail) {
-        switch (apiType.toLowerCase()) {
+        switch (apiType.toLowerCase(Locale.ENGLISH)) {
             case API_FIELD_TYPE_STRING:
                 return VARCHAR;
             case API_FIELD_TYPE_NUMBER, API_FIELD_TYPE_DROPDOWN:

@@ -35,12 +35,7 @@ import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.ResponseSpecification;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.RandomUtils;
 import org.apache.fineract.batch.command.internal.AdjustLoanTransactionCommandStrategy;
@@ -2046,7 +2041,7 @@ public class BatchApiTest extends BaseLoanIntegrationTest {
      */
     @Test
     public void shouldFindOneToOneDatatableEntryByQueryAPIAndUpdateOneOfItsColumn() {
-        final String datatableName = Utils.uniqueRandomStringGenerator(LOAN_APP_TABLE_NAME + "_", 5).toLowerCase();
+        final String datatableName = Utils.uniqueRandomStringGenerator(LOAN_APP_TABLE_NAME + "_", 5).toLowerCase(Locale.ENGLISH);
 
         final FromJsonHelper jsonHelper = new FromJsonHelper();
         final Long loanId = jsonHelper.extractLongNamed("loanId", jsonHelper.parse(setupAccount()).getAsJsonObject());
@@ -2054,8 +2049,8 @@ public class BatchApiTest extends BaseLoanIntegrationTest {
         final Map<String, Object> columnMap = new HashMap<>();
         final List<HashMap<String, Object>> datatableColumnsList = new ArrayList<>();
 
-        final String columnName1 = Utils.randomStringGenerator("COL1_", 5).toLowerCase();
-        final String columnName2 = Utils.randomStringGenerator("COL2_", 5).toLowerCase();
+        final String columnName1 = Utils.randomStringGenerator("COL1_", 5).toLowerCase(Locale.ENGLISH);
+        final String columnName2 = Utils.randomStringGenerator("COL2_", 5).toLowerCase(Locale.ENGLISH);
         columnMap.put("datatableName", datatableName);
         columnMap.put("apptableName", LOAN_APP_TABLE_NAME);
         columnMap.put("entitySubType", "PERSON");
@@ -2113,14 +2108,14 @@ public class BatchApiTest extends BaseLoanIntegrationTest {
      */
     @Test
     public void shouldNotFindAnyDatatableEntryByQueryAPIAndFailsToUpdateItsColumn() {
-        final String datatableName = Utils.uniqueRandomStringGenerator(LOAN_APP_TABLE_NAME + "_", 5).toLowerCase();
+        final String datatableName = Utils.uniqueRandomStringGenerator(LOAN_APP_TABLE_NAME + "_", 5).toLowerCase(Locale.ENGLISH);
 
         // creating datatable with m_loan association
         final Map<String, Object> columnMap = new HashMap<>();
         final List<HashMap<String, Object>> datatableColumnsList = new ArrayList<>();
 
-        final String columnName1 = Utils.randomStringGenerator("COL1_", 5).toLowerCase();
-        final String columnName2 = Utils.randomStringGenerator("COL2_", 5).toLowerCase();
+        final String columnName1 = Utils.randomStringGenerator("COL1_", 5).toLowerCase(Locale.ENGLISH);
+        final String columnName2 = Utils.randomStringGenerator("COL2_", 5).toLowerCase(Locale.ENGLISH);
         columnMap.put("datatableName", datatableName);
         columnMap.put("apptableName", LOAN_APP_TABLE_NAME);
         columnMap.put("entitySubType", "PERSON");
@@ -2160,7 +2155,7 @@ public class BatchApiTest extends BaseLoanIntegrationTest {
      */
     @Test
     public void shouldFindOneToManyDatatableEntryByQueryAPIAndUpdateOneOfItsColumn() {
-        final String datatableName = Utils.uniqueRandomStringGenerator(LOAN_APP_TABLE_NAME + "_", 5).toLowerCase();
+        final String datatableName = Utils.uniqueRandomStringGenerator(LOAN_APP_TABLE_NAME + "_", 5).toLowerCase(Locale.ENGLISH);
 
         final FromJsonHelper jsonHelper = new FromJsonHelper();
         final Long loanId = jsonHelper.extractLongNamed("loanId", jsonHelper.parse(setupAccount()).getAsJsonObject());
@@ -2168,8 +2163,8 @@ public class BatchApiTest extends BaseLoanIntegrationTest {
         final Map<String, Object> columnMap = new HashMap<>();
         final List<HashMap<String, Object>> datatableColumnsList = new ArrayList<>();
 
-        final String columnName1 = Utils.randomStringGenerator("COL1_", 5).toLowerCase();
-        final String columnName2 = Utils.randomStringGenerator("COL2_", 5).toLowerCase();
+        final String columnName1 = Utils.randomStringGenerator("COL1_", 5).toLowerCase(Locale.ENGLISH);
+        final String columnName2 = Utils.randomStringGenerator("COL2_", 5).toLowerCase(Locale.ENGLISH);
         columnMap.put("datatableName", datatableName);
         columnMap.put("apptableName", LOAN_APP_TABLE_NAME);
         columnMap.put("entitySubType", "PERSON");

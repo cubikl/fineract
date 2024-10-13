@@ -31,6 +31,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import org.apache.fineract.client.models.PostClientsResponse;
 import org.apache.fineract.client.models.PostEntityDatatableChecksTemplateResponse;
 import org.apache.fineract.integrationtests.common.ClientHelper;
@@ -561,10 +562,10 @@ public class EntityDatatableChecksIntegrationTest {
         // creating datatable for client entity person subentity
         HashMap<String, Object> columnMap = new HashMap<>();
         final List<HashMap<String, Object>> datatableColumnsList = new ArrayList<>();
-        final String datatableNamePerson = Utils.uniqueRandomStringGenerator(CLIENT_APP_TABLE_NAME + "_person_", 5).toLowerCase()
-                .toLowerCase();
-        final String datatableNameEntity = Utils.uniqueRandomStringGenerator(CLIENT_APP_TABLE_NAME + "_entity_", 5).toLowerCase()
-                .toLowerCase();
+        final String datatableNamePerson = Utils.uniqueRandomStringGenerator(CLIENT_APP_TABLE_NAME + "_person_", 5)
+                .toLowerCase(Locale.ENGLISH).toLowerCase(Locale.ENGLISH);
+        final String datatableNameEntity = Utils.uniqueRandomStringGenerator(CLIENT_APP_TABLE_NAME + "_entity_", 5)
+                .toLowerCase(Locale.ENGLISH).toLowerCase(Locale.ENGLISH);
 
         String itsAString = "itsastring";
         DatatableHelper.addDatatableColumn(datatableColumnsList, itsAString, "String", true, 10, null);

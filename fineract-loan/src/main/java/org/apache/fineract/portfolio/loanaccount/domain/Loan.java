@@ -2581,7 +2581,7 @@ public class Loan extends AbstractAuditableWithUTCDateTimeCustom<Long> {
         if (nextPaymentDueDateConfig == null) {
             return null;
         }
-        return switch (nextPaymentDueDateConfig.toLowerCase()) {
+        return switch (nextPaymentDueDateConfig.toLowerCase(Locale.ENGLISH)) {
             case EARLIEST_UNPAID_DATE -> getEarliestUnpaidInstallmentDate();
             case NEXT_UNPAID_DUE_DATE -> getNextUnpaidInstallmentDueDate();
             default -> null;

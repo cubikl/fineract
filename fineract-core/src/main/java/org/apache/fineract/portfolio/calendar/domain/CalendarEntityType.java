@@ -19,6 +19,7 @@
 package org.apache.fineract.portfolio.calendar.domain;
 
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 public enum CalendarEntityType {
@@ -151,11 +152,11 @@ public enum CalendarEntityType {
 
     static {
         for (final CalendarEntityType entityType : CalendarEntityType.values()) {
-            entityNameToEnumMap.put(entityType.name().toLowerCase(), entityType);
+            entityNameToEnumMap.put(entityType.name().toLowerCase(Locale.ENGLISH), entityType);
         }
     }
 
     public static CalendarEntityType getEntityType(String entityType) {
-        return entityNameToEnumMap.get(entityType.toLowerCase());
+        return entityNameToEnumMap.get(entityType.toLowerCase(Locale.ENGLISH));
     }
 }

@@ -27,11 +27,7 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoField;
 import java.time.temporal.Temporal;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.StringTokenizer;
+import java.util.*;
 import lombok.extern.slf4j.Slf4j;
 import net.fortuna.ical4j.model.Date;
 import net.fortuna.ical4j.model.DateList;
@@ -302,10 +298,11 @@ public final class CalendarUtils {
                 NthDayNameEnum nthDayName = NthDayNameEnum.from(nthDayType.toString());
                 DayNameEnum weekdayType = DayNameEnum.from(weekDay.getDay().name());
                 if (recur.getInterval() == 1 || recur.getInterval() == -1) {
-                    humanReadable = "Monthly on " + nthDayName.getCode().toLowerCase() + " " + weekdayType.getCode().toLowerCase();
+                    humanReadable = "Monthly on " + nthDayName.getCode().toLowerCase(Locale.ENGLISH) + " "
+                            + weekdayType.getCode().toLowerCase(Locale.ENGLISH);
                 } else {
-                    humanReadable = "Every " + recur.getInterval() + " months on " + nthDayName.getCode().toLowerCase() + " "
-                            + weekdayType.getCode().toLowerCase();
+                    humanReadable = "Every " + recur.getInterval() + " months on " + nthDayName.getCode().toLowerCase(Locale.ENGLISH) + " "
+                            + weekdayType.getCode().toLowerCase(Locale.ENGLISH);
                 }
             } else if (monthDay != null) {
                 if (monthDay == -1) {
@@ -748,7 +745,7 @@ public final class CalendarUtils {
             if (nthDayType == NthDayType.ONE || nthDayType == NthDayType.TWO || nthDayType == NthDayType.THREE
                     || nthDayType == NthDayType.FOUR) {
                 baseDataValidator.reset().parameter(repeatsOnDayParamName).value(repeatsOnDay).cantBeBlankWhenParameterProvidedIs(
-                        repeatsOnNthDayOfMonthParamName, NthDayNameEnum.from(nthDayType.toString()).getCode().toLowerCase());
+                        repeatsOnNthDayOfMonthParamName, NthDayNameEnum.from(nthDayType.toString()).getCode().toLowerCase(Locale.ENGLISH));
             }
         }
     }

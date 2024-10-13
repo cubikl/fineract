@@ -22,6 +22,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.fineract.infrastructure.core.data.ApiParameterError;
 import org.apache.fineract.infrastructure.core.domain.Base64EncodedImage;
@@ -115,7 +116,7 @@ public final class ContentRepositoryUtils {
     }
 
     public static ImageFileExtension imageExtensionFromFileName(String fileName) {
-        if (StringUtils.endsWith(fileName.toLowerCase(), ContentRepositoryUtils.ImageFileExtension.GIF.getValue())) {
+        if (StringUtils.endsWith(fileName.toLowerCase(Locale.ENGLISH), ContentRepositoryUtils.ImageFileExtension.GIF.getValue())) {
             return ContentRepositoryUtils.ImageFileExtension.GIF;
         } else if (StringUtils.endsWith(fileName, ContentRepositoryUtils.ImageFileExtension.PNG.getValue())) {
             return ContentRepositoryUtils.ImageFileExtension.PNG;

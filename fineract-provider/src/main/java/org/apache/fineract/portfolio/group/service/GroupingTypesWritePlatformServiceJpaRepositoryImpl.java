@@ -20,13 +20,7 @@ package org.apache.fineract.portfolio.group.service;
 
 import jakarta.persistence.PersistenceException;
 import java.time.LocalDate;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.exception.ExceptionUtils;
@@ -745,13 +739,13 @@ public class GroupingTypesWritePlatformServiceJpaRepositoryImpl implements Group
         if (realCause.getMessage().contains("'external_id'")) {
             final String externalId = command.stringValueOfParameterNamed(GroupingTypesApiConstants.externalIdParamName);
             errorMessageForUser = levelName + " with externalId `" + externalId + "` already exists.";
-            errorMessageForMachine = "error.msg." + levelName.toLowerCase() + ".duplicate.externalId";
+            errorMessageForMachine = "error.msg." + levelName.toLowerCase(Locale.ENGLISH) + ".duplicate.externalId";
             throw new PlatformDataIntegrityException(errorMessageForMachine, errorMessageForUser,
                     GroupingTypesApiConstants.externalIdParamName, externalId);
         } else if (realCause.getMessage().contains("'name'")) {
             final String name = command.stringValueOfParameterNamed(GroupingTypesApiConstants.nameParamName);
             errorMessageForUser = levelName + " with name `" + name + "` already exists.";
-            errorMessageForMachine = "error.msg." + levelName.toLowerCase() + ".duplicate.name";
+            errorMessageForMachine = "error.msg." + levelName.toLowerCase(Locale.ENGLISH) + ".duplicate.name";
             throw new PlatformDataIntegrityException(errorMessageForMachine, errorMessageForUser, GroupingTypesApiConstants.nameParamName,
                     name);
         }
@@ -904,7 +898,7 @@ public class GroupingTypesWritePlatformServiceJpaRepositoryImpl implements Group
             final String levelName = groupLevel.getLevelName();
             final String errorMessage = levelName + " activation date should be greater than or equal to the parent Office's creation date "
                     + activationDate.toString();
-            throw new InvalidGroupStateTransitionException(levelName.toLowerCase(), "activate.date",
+            throw new InvalidGroupStateTransitionException(levelName.toLowerCase(Locale.ENGLISH), "activate.date",
                     "cannot.be.before.office.activation.date", errorMessage, activationDate, groupOffice.getOpeningLocalDate());
         }
     }

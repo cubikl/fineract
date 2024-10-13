@@ -21,10 +21,7 @@ package org.apache.fineract.portfolio.note.service;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.OffsetDateTime;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.fineract.infrastructure.core.data.EnumOptionData;
 import org.apache.fineract.infrastructure.core.domain.JdbcSupport;
@@ -96,7 +93,7 @@ public class NoteReadPlatformServiceImpl implements NoteReadPlatformService {
 
             return this.jdbcTemplate.queryForObject(sql, rm, paramList.toArray()); // NOSONAR
         } catch (final EmptyResultDataAccessException e) {
-            throw new NoteNotFoundException(noteId, resourceId, noteType.name().toLowerCase(), e);
+            throw new NoteNotFoundException(noteId, resourceId, noteType.name().toLowerCase(Locale.ENGLISH), e);
         }
     }
 

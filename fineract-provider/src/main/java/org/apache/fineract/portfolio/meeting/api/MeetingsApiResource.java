@@ -34,10 +34,7 @@ import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.UriInfo;
 import java.time.LocalDate;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.fineract.commands.domain.CommandWrapper;
@@ -92,7 +89,7 @@ public class MeetingsApiResource {
             @QueryParam("calendarId") final Long calendarId, @Context final UriInfo uriInfo) {
 
         this.context.authenticatedUser().validateHasReadPermission(MEETING_RESOURCE_NAME);
-        final Integer entityTypeId = CalendarEntityType.valueOf(entityType.toUpperCase()).getValue();
+        final Integer entityTypeId = CalendarEntityType.valueOf(entityType.toUpperCase(Locale.ENGLISH)).getValue();
         Collection<ClientData> clients = null;
         CalendarData calendarData = null;
 
@@ -134,7 +131,7 @@ public class MeetingsApiResource {
         this.context.authenticatedUser().validateHasReadPermission(MEETING_RESOURCE_NAME);
 
         final Collection<MeetingData> meetingsData = this.readPlatformService.retrieveMeetingsByEntity(entityId,
-                CalendarEntityType.valueOf(entityType.toUpperCase()).getValue(), limit);
+                CalendarEntityType.valueOf(entityType.toUpperCase(Locale.ENGLISH)).getValue(), limit);
 
         final ApiRequestJsonSerializationSettings settings = this.apiRequestParameterHelper.process(uriInfo.getQueryParameters());
         return this.toApiJsonSerializer.serialize(settings, meetingsData, MEETING_RESPONSE_DATA_PARAMETERS);
@@ -148,7 +145,7 @@ public class MeetingsApiResource {
             @PathParam("entityId") final Long entityId, @Context final UriInfo uriInfo) {
 
         this.context.authenticatedUser().validateHasReadPermission(MEETING_RESOURCE_NAME);
-        final Integer entityTypeId = CalendarEntityType.valueOf(entityType.toUpperCase()).getValue();
+        final Integer entityTypeId = CalendarEntityType.valueOf(entityType.toUpperCase(Locale.ENGLISH)).getValue();
         MeetingData meetingData = this.readPlatformService.retrieveMeeting(meetingId, entityId, entityTypeId);
         final Collection<ClientAttendanceData> clientsAttendance = this.attendanceReadPlatformService
                 .retrieveClientAttendanceByMeetingId(meetingId);

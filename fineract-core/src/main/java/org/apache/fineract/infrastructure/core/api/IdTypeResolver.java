@@ -64,7 +64,7 @@ public abstract class IdTypeResolver {
     }
 
     public static String formatIdType(String idType) {
-        return idType == null ? null : idType.replaceAll("-", "_").toUpperCase();
+        return idType == null ? null : idType.replaceAll("-", "_").toUpperCase(Locale.ENGLISH);
     }
 
     public static RuntimeException resolveFailed(String idType, Exception e) {

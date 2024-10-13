@@ -22,13 +22,7 @@ import java.math.BigDecimal;
 import java.math.MathContext;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import lombok.RequiredArgsConstructor;
 import org.apache.fineract.accounting.journalentry.service.JournalEntryWritePlatformService;
 import org.apache.fineract.infrastructure.codes.domain.CodeValue;
@@ -498,7 +492,7 @@ public class LoanRescheduleRequestWritePlatformServiceImpl implements LoanResche
             final Throwable realCause = e.getCause();
             final List<ApiParameterError> dataValidationErrors = new ArrayList<>();
             final DataValidatorBuilder baseDataValidator = new DataValidatorBuilder(dataValidationErrors).resource("loan.transaction");
-            if (realCause.getMessage().toLowerCase().contains("external_id_unique")) {
+            if (realCause.getMessage().toLowerCase(Locale.ENGLISH).contains("external_id_unique")) {
                 baseDataValidator.reset().parameter("externalId").failWithCode("value.must.be.unique");
             }
             if (!dataValidationErrors.isEmpty()) {

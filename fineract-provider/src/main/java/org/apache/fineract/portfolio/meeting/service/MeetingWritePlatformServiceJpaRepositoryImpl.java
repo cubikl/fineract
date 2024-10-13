@@ -32,6 +32,7 @@ import com.google.gson.JsonObject;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Locale;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import org.apache.fineract.infrastructure.configuration.domain.ConfigurationDomainService;
@@ -132,7 +133,7 @@ public class MeetingWritePlatformServiceJpaRepositoryImpl implements MeetingWrit
                 .orElseThrow(() -> new CalendarNotFoundException(calendarId));
 
         Long entityId = null;// command.getSupportedEntityId();
-        CalendarEntityType entityType = CalendarEntityType.INVALID;// CalendarEntityType.valueOf(command.getSupportedEntityType().toUpperCase());
+        CalendarEntityType entityType = CalendarEntityType.INVALID;// CalendarEntityType.valueOf(command.getSupportedEntityType().toUpperCase(Locale.ENGLISH));
         if (command.getLoanId() != null) {
             entityId = command.getLoanId();
             entityType = CalendarEntityType.LOANS;
@@ -157,7 +158,7 @@ public class MeetingWritePlatformServiceJpaRepositoryImpl implements MeetingWrit
         final CalendarInstance calendarInstance = this.calendarInstanceRepository
                 .findByCalendarIdAndEntityIdAndEntityTypeId(calendarForUpdate.getId(), entityId, entityType.getValue());
         if (calendarInstance == null) {
-            final String postFix = "for." + entityType.name().toLowerCase() + "not.found";
+            final String postFix = "for." + entityType.name().toLowerCase(Locale.ENGLISH) + "not.found";
             final String defaultUserMessage = "No Calendar Instance details found for group with identifier " + entityId
                     + " and calendar with identifier " + calendarId;
             throw new CalendarInstanceNotFoundException(postFix, defaultUserMessage, entityId, calendarId);

@@ -18,11 +18,7 @@
  */
 package org.apache.fineract.infrastructure.core.data;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import org.apache.fineract.infrastructure.core.exception.PlatformApiDataValidationException;
 import org.springframework.stereotype.Component;
 
@@ -43,7 +39,7 @@ public class PaginationParametersDataValidator {
             dataValidationErrors.add(error);
         }
 
-        if (parameters.hasSortOrder() && !sortOrderValues.contains(parameters.getSortOrder().toUpperCase())) {
+        if (parameters.hasSortOrder() && !sortOrderValues.contains(parameters.getSortOrder().toUpperCase(Locale.ENGLISH))) {
             final String defaultUserMessage = "The sortOrder value '" + parameters.getSortOrder()
                     + "' is not supported. The supported sortOrder values are " + sortOrderValues;
             final ApiParameterError error = ApiParameterError.parameterError(

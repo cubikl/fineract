@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License. You may obtain a copy of the License at
- *
+ * <p>
  * http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p>
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -23,6 +23,8 @@ import static org.apache.fineract.interoperation.util.InteropUtil.ENTITY_NAME_ID
 import com.google.common.base.Splitter;
 import com.google.common.base.Strings;
 import java.util.List;
+import java.util.Locale;
+import java.util.Optional;
 import org.apache.fineract.commands.annotation.CommandType;
 import org.apache.fineract.commands.handler.NewCommandSourceHandler;
 import org.apache.fineract.infrastructure.core.api.JsonCommand;
@@ -32,7 +34,6 @@ import org.apache.fineract.interoperation.service.InteropService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.StringUtils;
 
 @Service
 @CommandType(entity = ENTITY_NAME_IDENTIFIER, action = "DELETE")
@@ -50,9 +51,9 @@ public class DeleteInteropIdentifierHandler implements NewCommandSourceHandler {
     public CommandProcessingResult processCommand(final JsonCommand command) {
         List<String> split = Splitter.on('/').splitToList(command.getUrl());
         int length = split.size();
-        String subIdOrType = Strings.emptyToNull(StringUtils.trimWhitespace(split.get(length - 1)));
+        String subIdOrType = Optional.ofNullable(split.get(length - 1)).map(String::strip).map(Strings::emptyToNull).orElse(null);
         String idValue = split.get(length - 2);
-        InteropIdentifierType idType = InteropIdentifierType.valueOf(split.get(length - 3).toUpperCase());
+        InteropIdentifierType idType = InteropIdentifierType.valueOf(split.get(length - 3).toUpperCase(Locale.ENGLISH));
         return this.interopService.deleteAccountIdentifier(idType, idValue, subIdOrType);
     }
 }

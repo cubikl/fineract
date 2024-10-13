@@ -20,11 +20,7 @@ package org.apache.fineract.portfolio.loanaccount.domain;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -360,7 +356,7 @@ public class LoanAccountDomainServiceJpa implements LoanAccountDomainService {
         final Throwable realCause = e.getCause();
         final List<ApiParameterError> dataValidationErrors = new ArrayList<>();
         final DataValidatorBuilder baseDataValidator = new DataValidatorBuilder(dataValidationErrors).resource("loan.transaction");
-        if (realCause.getMessage().toLowerCase().contains("external_id_unique") || realCause.getMessage()
+        if (realCause.getMessage().toLowerCase(Locale.ENGLISH).contains("external_id_unique") || realCause.getMessage()
                 .contains("duplicate key value violates unique constraint \"m_loan_transaction_external_id_key\"")) {
             baseDataValidator.reset().parameter("externalId").failWithCode("value.must.be.unique");
         }

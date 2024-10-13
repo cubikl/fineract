@@ -24,6 +24,7 @@ import com.google.gson.JsonObject;
 import jakarta.persistence.PersistenceException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.exception.ExceptionUtils;
@@ -146,7 +147,7 @@ public class EntityDatatableChecksWritePlatformServiceImpl implements EntityData
             tableRequiredBeforeClientActivation = entityDatatableChecksRepository.findByEntityAndStatus(entityName, status);
         } else {
             tableRequiredBeforeClientActivation = entityDatatableChecksRepository.findByEntityAndStatusAndSubtype(entityName, status,
-                    entitySubtype.toUpperCase());
+                    entitySubtype.toUpperCase(Locale.ENGLISH));
         }
 
         if (tableRequiredBeforeClientActivation != null) {

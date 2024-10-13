@@ -33,12 +33,7 @@ import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.UriInfo;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import lombok.RequiredArgsConstructor;
 import org.apache.fineract.commands.domain.CommandWrapper;
 import org.apache.fineract.commands.service.CommandWrapperBuilder;
@@ -91,7 +86,7 @@ public class CalendarsApiResource {
             @PathParam("entityId") final Long entityId, @Context final UriInfo uriInfo) {
 
         this.context.authenticatedUser().validateHasReadPermission(RESOURCE_NAME_FOR_PERMISSIONS);
-        final Integer entityTypeId = CalendarEntityType.valueOf(entityType.toUpperCase()).getValue();
+        final Integer entityTypeId = CalendarEntityType.valueOf(entityType.toUpperCase(Locale.ENGLISH)).getValue();
         CalendarData calendarData = this.readPlatformService.retrieveCalendar(calendarId, entityId, entityTypeId);
 
         // Include recurring date details
@@ -132,11 +127,11 @@ public class CalendarsApiResource {
 
         if (!associationParameters.isEmpty() && associationParameters.contains("parentCalendars")) {
             calendarsData.addAll(this.readPlatformService.retrieveParentCalendarsByEntity(entityId,
-                    CalendarEntityType.valueOf(entityType.toUpperCase()).getValue(), calendarTypeOptions));
+                    CalendarEntityType.valueOf(entityType.toUpperCase(Locale.ENGLISH)).getValue(), calendarTypeOptions));
         }
 
         calendarsData.addAll(this.readPlatformService.retrieveCalendarsByEntity(entityId,
-                CalendarEntityType.valueOf(entityType.toUpperCase()).getValue(), calendarTypeOptions));
+                CalendarEntityType.valueOf(entityType.toUpperCase(Locale.ENGLISH)).getValue(), calendarTypeOptions));
 
         // Add recurring dates
         calendarsData = this.readPlatformService.updateWithRecurringDates(calendarsData);

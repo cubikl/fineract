@@ -38,12 +38,7 @@ import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import org.apache.fineract.client.models.GetDataTablesResponse;
 import org.apache.fineract.client.models.PostDataTablesAppTableIdResponse;
 import org.apache.fineract.client.models.PostDataTablesResponse;
@@ -105,7 +100,7 @@ public class DatatableIntegrationTest extends IntegrationTest {
     @Test
     public void validateCreateReadDeleteDatatable() throws ParseException {
         // Fetch / Create tst code
-        String tst_tst_tst = "TST_TST_TST".toLowerCase();
+        String tst_tst_tst = "TST_TST_TST".toLowerCase(Locale.ENGLISH);
         HashMap<String, Object> codeResponse = CodeHelper.getCodeByName(this.requestSpec, this.responseSpec, tst_tst_tst);
 
         Integer createdCodeId = (Integer) codeResponse.get("id");
@@ -128,7 +123,8 @@ public class DatatableIntegrationTest extends IntegrationTest {
         // creating datatable for client entity
         final HashMap<String, Object> columnMap = new HashMap<>();
         final List<HashMap<String, Object>> datatableColumnsList = new ArrayList<>();
-        columnMap.put("datatableName", Utils.uniqueRandomStringGenerator(CLIENT_APP_TABLE_NAME + "_", 5).toLowerCase().toLowerCase());
+        columnMap.put("datatableName",
+                Utils.uniqueRandomStringGenerator(CLIENT_APP_TABLE_NAME + "_", 5).toLowerCase(Locale.ENGLISH).toLowerCase(Locale.ENGLISH));
         columnMap.put("entitySubType", "PERSON");
         columnMap.put("multiRow", false);
         String itsABoolean = "itsaboolean";

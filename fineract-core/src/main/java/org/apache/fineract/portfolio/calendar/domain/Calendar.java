@@ -29,12 +29,7 @@ import jakarta.persistence.Table;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.temporal.ChronoField;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.fineract.infrastructure.core.api.JsonCommand;
 import org.apache.fineract.infrastructure.core.data.ApiParameterError;
@@ -518,7 +513,7 @@ public class Calendar extends AbstractAuditableWithUTCDateTimeCustom<Long> {
         final StringBuilder recurrenceBuilder = new StringBuilder(200);
 
         recurrenceBuilder.append("FREQ=");
-        recurrenceBuilder.append(frequencyType.toString().toUpperCase());
+        recurrenceBuilder.append(frequencyType.toString().toUpperCase(Locale.ENGLISH));
         if (interval > 1) {
             recurrenceBuilder.append(";INTERVAL=");
             recurrenceBuilder.append(interval);
@@ -528,7 +523,7 @@ public class Calendar extends AbstractAuditableWithUTCDateTimeCustom<Long> {
                 final CalendarWeekDaysType weekDays = CalendarWeekDaysType.fromInt(repeatsOnDay);
                 if (!weekDays.isInvalid()) {
                     recurrenceBuilder.append(";BYDAY=");
-                    recurrenceBuilder.append(weekDays.toString().toUpperCase());
+                    recurrenceBuilder.append(weekDays.toString().toUpperCase(Locale.ENGLISH));
                 }
             }
         }
@@ -548,7 +543,7 @@ public class Calendar extends AbstractAuditableWithUTCDateTimeCustom<Long> {
                 final CalendarWeekDaysType weekday = CalendarWeekDaysType.fromInt(repeatsOnDay);
                 if (!weekday.isInvalid()) {
                     recurrenceBuilder.append(";BYDAY=");
-                    recurrenceBuilder.append(weekday.toString().toUpperCase());
+                    recurrenceBuilder.append(weekday.toString().toUpperCase(Locale.ENGLISH));
                 }
             }
         }

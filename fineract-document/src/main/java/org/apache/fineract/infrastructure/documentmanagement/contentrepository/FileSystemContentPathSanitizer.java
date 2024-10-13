@@ -22,6 +22,7 @@ import jakarta.annotation.PostConstruct;
 import java.io.BufferedInputStream;
 import java.nio.file.Path;
 import java.util.List;
+import java.util.Locale;
 import java.util.regex.Pattern;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -67,7 +68,7 @@ public class FileSystemContentPathSanitizer implements ContentPathSanitizer {
 
             String sanitizedPath = Path.of(path).normalize().toString();
 
-            String fileName = FilenameUtils.getName(sanitizedPath).toLowerCase();
+            String fileName = FilenameUtils.getName(sanitizedPath).toLowerCase(Locale.ENGLISH);
 
             if (log.isDebugEnabled()) {
                 log.debug("Path: {} -> {} ({})", path, sanitizedPath, fileName);

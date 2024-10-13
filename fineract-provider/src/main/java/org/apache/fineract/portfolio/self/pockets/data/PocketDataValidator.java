@@ -23,12 +23,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.fineract.infrastructure.accountnumberformat.domain.EntityAccountType;
 import org.apache.fineract.infrastructure.core.data.ApiParameterError;
@@ -73,8 +68,8 @@ public class PocketDataValidator {
         JsonArray accountsDetail = this.fromApiJsonHelper.extractJsonArrayNamed(PocketApiConstants.accountsDetail, element);
         baseDataValidator.reset().parameter(PocketApiConstants.accountsDetail).value(accountsDetail).notNull().jsonArrayNotEmpty();
 
-        final List<String> valueList = Arrays.asList(EntityAccountType.LOAN.name().toLowerCase(),
-                EntityAccountType.SAVINGS.name().toLowerCase(), EntityAccountType.SHARES.name().toLowerCase());
+        final List<String> valueList = Arrays.asList(EntityAccountType.LOAN.name().toLowerCase(Locale.ENGLISH),
+                EntityAccountType.SAVINGS.name().toLowerCase(Locale.ENGLISH), EntityAccountType.SHARES.name().toLowerCase(Locale.ENGLISH));
 
         for (JsonElement accountDetails : accountsDetail) {
 

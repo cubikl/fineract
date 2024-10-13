@@ -27,12 +27,7 @@ import jakarta.persistence.PersistenceException;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.temporal.ChronoField;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -449,7 +444,7 @@ public class LoanApplicationWritePlatformServiceJpaRepositoryImpl implements Loa
                     "Loan with accountNo `" + accountNo + "` already exists", "accountNo", accountNo);
         } else if (realCause.getMessage().contains("loan_externalid_UNIQUE")
                 || (realCause.getCause() != null && realCause.getCause().getMessage().contains("loan_externalid_UNIQUE"))
-                || realCause.getMessage().toLowerCase().contains("external_id_unique")) {
+                || realCause.getMessage().toLowerCase(Locale.ENGLISH).contains("external_id_unique")) {
             final String externalId = command.stringValueOfParameterNamed("externalId");
             throw new PlatformDataIntegrityException("error.msg.loan.duplicate.externalId",
                     "Loan with externalId `" + externalId + "` already exists", "externalId", externalId);

@@ -30,6 +30,7 @@ import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.ResponseSpecification;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import org.apache.fineract.client.models.GetDataTablesResponse;
 import org.apache.fineract.client.models.PostColumnHeaderData;
 import org.apache.fineract.client.models.PostDataTablesRequest;
@@ -80,7 +81,8 @@ public class SavingsAccountTransactionDatatableIntegrationTest {
     @Test
     public void testDatatableCreateReadUpdateDeleteForSavingsAccountTransaction() {
         // create dataTable
-        String datatableName = Utils.uniqueRandomStringGenerator("dt_savings_transaction_", 5).toLowerCase().toLowerCase();
+        String datatableName = Utils.uniqueRandomStringGenerator("dt_savings_transaction_", 5).toLowerCase(Locale.ENGLISH)
+                .toLowerCase(Locale.ENGLISH);
         String column1Name = "aNumber";
         String column2Name = "aString";
         String column3Name = "aBoolean";
@@ -157,7 +159,8 @@ public class SavingsAccountTransactionDatatableIntegrationTest {
         assertNotNull(transactionId);
 
         // create dataTable
-        String datatableName = Utils.uniqueRandomStringGenerator("dt_savings_transaction_", 5).toLowerCase().toLowerCase();
+        String datatableName = Utils.uniqueRandomStringGenerator("dt_savings_transaction_", 5).toLowerCase(Locale.ENGLISH)
+                .toLowerCase(Locale.ENGLISH);
         String column1Name = "aNumber";
 
         PostDataTablesRequest request = new PostDataTablesRequest();

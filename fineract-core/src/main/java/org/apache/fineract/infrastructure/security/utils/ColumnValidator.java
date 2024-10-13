@@ -23,14 +23,7 @@ import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -96,12 +89,12 @@ public class ColumnValidator {
             }
             sqlValidator.validate("column", condition);
             List<String> operator = new ArrayList<>(Arrays.asList("=", ">", "<", "> =", "< =", "! =", "!=", ">=", "<="));
-            condition = condition.trim().replace("( ", "(").replace(" )", ")").toLowerCase();
+            condition = condition.trim().replace("( ", "(").replace(" )", ")").toLowerCase(Locale.ENGLISH);
             for (String op : operator) {
                 condition = replaceAll(condition, op).replaceAll(" +", " ");
             }
             Set<String> operands = getOperand(condition);
-            schema = schema.trim().replaceAll(" +", " ").toLowerCase();
+            schema = schema.trim().replaceAll(" +", " ").toLowerCase(Locale.ENGLISH);
             Map<String, Set<String>> tableColumnAliasMap = getTableColumnAliasMap(operands);
             Map<String, Set<String>> tableColumnMap = getTableColumnMap(schema, tableColumnAliasMap);
             validateColumn(tableColumnMap);

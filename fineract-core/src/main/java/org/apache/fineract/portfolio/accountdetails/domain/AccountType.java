@@ -20,6 +20,7 @@ package org.apache.fineract.portfolio.accountdetails.domain;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 import org.apache.fineract.infrastructure.core.data.EnumOptionData;
 import org.apache.fineract.portfolio.accountdetails.service.AccountEnumerations;
 
@@ -90,7 +91,7 @@ public enum AccountType {
     }
 
     public String getName() {
-        return name().toLowerCase();
+        return name().toLowerCase(Locale.ENGLISH);
     }
 
     public boolean isInvalid() {

@@ -30,14 +30,7 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.fineract.infrastructure.core.api.JsonCommand;
 import org.apache.fineract.infrastructure.core.data.EnumOptionData;
@@ -566,8 +559,8 @@ public class AppUser extends AbstractPersistableCustom<Long> implements Platform
     }
 
     private void validateHasPermission(final String prefix, final String resourceType) {
-        final String authorizationMessage = "User has no authority to " + prefix + " " + resourceType.toLowerCase() + "s";
-        final String matchPermission = prefix + "_" + resourceType.toUpperCase();
+        final String authorizationMessage = "User has no authority to " + prefix + " " + resourceType.toLowerCase(Locale.ENGLISH) + "s";
+        final String matchPermission = prefix + "_" + resourceType.toUpperCase(Locale.ENGLISH);
 
         if (!hasNotPermissionForAnyOf("ALL_FUNCTIONS", "ALL_FUNCTIONS_READ", matchPermission)) {
             return;
@@ -650,7 +643,7 @@ public class AppUser extends AbstractPersistableCustom<Long> implements Platform
     }
 
     public void validateHasCheckerPermissionTo(final String function) {
-        final String checkerPermissionName = function.toUpperCase() + "_CHECKER";
+        final String checkerPermissionName = function.toUpperCase(Locale.ENGLISH) + "_CHECKER";
         if (hasNotPermissionTo("CHECKER_SUPER_USER") && hasNotPermissionTo(checkerPermissionName)) {
             final String authorizationMessage = "User has no authority to be a checker for: " + function;
             throw new NoAuthorizationException(authorizationMessage);

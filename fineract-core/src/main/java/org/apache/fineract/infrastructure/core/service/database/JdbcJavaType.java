@@ -131,7 +131,7 @@ public enum JdbcJavaType {
         if (name == null) {
             return null;
         }
-        name = name.toUpperCase();
+        name = name.toUpperCase(Locale.ENGLISH);
 
         for (JdbcJavaType type : values()) {
             DialectType dialectType = type.getDialectType(dialect);

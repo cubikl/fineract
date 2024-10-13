@@ -516,7 +516,7 @@ public class SmsCampaign extends AbstractPersistableCustom<Long> {
         final StringBuilder recurrenceBuilder = new StringBuilder(200);
 
         recurrenceBuilder.append("FREQ=");
-        recurrenceBuilder.append(frequencyType.toString().toUpperCase());
+        recurrenceBuilder.append(frequencyType.toString().toUpperCase(Locale.ENGLISH));
         if (interval > 1) {
             recurrenceBuilder.append(";INTERVAL=");
             recurrenceBuilder.append(interval);
@@ -526,7 +526,7 @@ public class SmsCampaign extends AbstractPersistableCustom<Long> {
                 final CalendarWeekDaysType weekDays = CalendarWeekDaysType.fromInt(repeatsOnDay);
                 if (!weekDays.isInvalid()) {
                     recurrenceBuilder.append(";BYDAY=");
-                    recurrenceBuilder.append(weekDays.toString().toUpperCase());
+                    recurrenceBuilder.append(weekDays.toString().toUpperCase(Locale.ENGLISH));
                 }
             }
         }

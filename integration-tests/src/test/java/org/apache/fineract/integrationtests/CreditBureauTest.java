@@ -36,6 +36,7 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatterBuilder;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.stream.Collectors;
 import org.apache.fineract.infrastructure.creditbureau.data.CreditBureauReportData;
@@ -81,8 +82,9 @@ public class CreditBureauTest {
         List<Map<String, Object>> configurations = CreditBureauConfigurationHelper.getCreditBureauConfiguration(requestSpec, responseSpec,
                 "1");
         Assertions.assertNotNull(configurations);
-        Map<String, Integer> currentConfiguration = configurations.stream().collect(Collectors
-                .toMap(k -> String.valueOf(k.get("configurationKey")).toUpperCase(), v -> (int) v.get("creditBureauConfigurationId")));
+        Map<String, Integer> currentConfiguration = configurations.stream()
+                .collect(Collectors.toMap(k -> String.valueOf(k.get("configurationKey")).toUpperCase(Locale.ENGLISH),
+                        v -> (int) v.get("creditBureauConfigurationId")));
         final Object usernameConfigurationId = CreditBureauConfigurationHelper.updateCreditBureauConfiguration(this.requestSpec,
                 this.responseSpec, currentConfiguration.get("USERNAME").intValue(), "USERNAME", "testUser");
         Assertions.assertNotNull(usernameConfigurationId);

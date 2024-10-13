@@ -181,7 +181,7 @@ public class SavingsAccountTransactionTest {
 
         // creating datatable for client entity
         final HashMap<String, Object> columnMap = new HashMap<>();
-        String datatableName = Utils.uniqueRandomStringGenerator("dt_savings_transaction_", 5).toLowerCase();
+        String datatableName = Utils.uniqueRandomStringGenerator("dt_savings_transaction_", 5).toLowerCase(Locale.ENGLISH);
         columnMap.put("datatableName", datatableName);
         columnMap.put("apptableName", "m_savings_account_transaction");
         columnMap.put("multiRow", false);

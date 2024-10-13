@@ -18,6 +18,7 @@
  */
 package org.apache.fineract.portfolio.note.service;
 
+import java.util.Locale;
 import java.util.Map;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -238,7 +239,7 @@ public class NoteWritePlatformServiceJpaRepositoryImpl implements NoteWritePlatf
 
         final Note noteForUpdate = this.noteRepository.findByClientAndId(client, noteId);
         if (noteForUpdate == null) {
-            throw new NoteNotFoundException(noteId, resourceId, type.name().toLowerCase());
+            throw new NoteNotFoundException(noteId, resourceId, type.name().toLowerCase(Locale.ENGLISH));
         }
 
         final Map<String, Object> changes = noteForUpdate.update(command);
@@ -268,7 +269,7 @@ public class NoteWritePlatformServiceJpaRepositoryImpl implements NoteWritePlatf
         final Note noteForUpdate = this.noteRepository.findByGroupAndId(group, noteId);
 
         if (noteForUpdate == null) {
-            throw new NoteNotFoundException(noteId, resourceId, type.name().toLowerCase());
+            throw new NoteNotFoundException(noteId, resourceId, type.name().toLowerCase(Locale.ENGLISH));
         }
 
         final Map<String, Object> changes = noteForUpdate.update(command);
@@ -295,7 +296,7 @@ public class NoteWritePlatformServiceJpaRepositoryImpl implements NoteWritePlatf
         final Loan loan = this.loanRepository.findOneWithNotFoundDetection(resourceId);
         final Note noteForUpdate = this.noteRepository.findByLoanAndId(loan, noteId);
         if (noteForUpdate == null) {
-            throw new NoteNotFoundException(noteId, resourceId, type.name().toLowerCase());
+            throw new NoteNotFoundException(noteId, resourceId, type.name().toLowerCase(Locale.ENGLISH));
         }
 
         final Map<String, Object> changes = noteForUpdate.update(command);
@@ -322,7 +323,7 @@ public class NoteWritePlatformServiceJpaRepositoryImpl implements NoteWritePlatf
         final Note noteForUpdate = this.noteRepository.findByLoanTransactionAndId(loanTransaction, noteId);
 
         if (noteForUpdate == null) {
-            throw new NoteNotFoundException(noteId, resourceId, type.name().toLowerCase());
+            throw new NoteNotFoundException(noteId, resourceId, type.name().toLowerCase(Locale.ENGLISH));
         }
 
         final Map<String, Object> changes = noteForUpdate.update(command);
@@ -344,7 +345,7 @@ public class NoteWritePlatformServiceJpaRepositoryImpl implements NoteWritePlatf
 
         final Note noteForUpdate = this.noteRepository.findBySavingsAccountAndId(savingAccount, noteId);
         if (noteForUpdate == null) {
-            throw new NoteNotFoundException(noteId, resourceId, type.name().toLowerCase());
+            throw new NoteNotFoundException(noteId, resourceId, type.name().toLowerCase(Locale.ENGLISH));
         }
         final Map<String, Object> changes = noteForUpdate.update(command);
         if (!changes.isEmpty()) {
@@ -451,7 +452,7 @@ public class NoteWritePlatformServiceJpaRepositoryImpl implements NoteWritePlatf
             break;
         }
         if (noteForUpdate == null) {
-            throw new NoteNotFoundException(noteId, resourceId, type.name().toLowerCase());
+            throw new NoteNotFoundException(noteId, resourceId, type.name().toLowerCase(Locale.ENGLISH));
         }
         return noteForUpdate;
     }

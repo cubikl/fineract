@@ -20,12 +20,7 @@ package org.apache.fineract.portfolio.calendar.service;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import lombok.RequiredArgsConstructor;
 import org.apache.fineract.infrastructure.configuration.domain.ConfigurationDomainService;
 import org.apache.fineract.infrastructure.core.api.JsonCommand;
@@ -106,7 +101,7 @@ public class CalendarWritePlatformServiceJpaRepositoryImpl implements CalendarWr
                 dateAsString = formatter.format(entityActivationDate);
             }
 
-            final String errorMessage = "cannot.be.before." + entityType.name().toLowerCase() + ".activation.date";
+            final String errorMessage = "cannot.be.before." + entityType.name().toLowerCase(Locale.ENGLISH) + ".activation.date";
             baseDataValidator.reset().parameter(CalendarSupportedParameters.START_DATE.getValue()).value(dateAsString)
                     .failWithCodeNoParameterAddedToErrorCode(errorMessage);
         }
