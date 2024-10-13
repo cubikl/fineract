@@ -46,7 +46,7 @@ public class ChargeRepositoryWrapper {
 
     public Charge findOneWithNotFoundDetection(final Long id) {
 
-        final Charge chargeDefinition = this.repository.findById(id).orElseThrow(() -> new ChargeNotFoundException(id));
+        final Charge chargeDefinition = this.repository.findById(id).orElseThrow();
         if (chargeDefinition.isDeleted()) {
             throw new ChargeNotFoundException(id);
         }

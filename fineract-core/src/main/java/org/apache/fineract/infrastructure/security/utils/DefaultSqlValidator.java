@@ -47,7 +47,7 @@ public class DefaultSqlValidator implements SqlValidator {
     @PostConstruct
     public void init() {
         properties.getSqlValidation().getPatterns().forEach(pattern -> {
-            log.info("Setup SQL validation pattern: {}", pattern.getName());
+            log.info("Setup SQL validation pattern: {}", pattern. getName());
 
             patterns.put(pattern.getName(), Pattern.compile(pattern.getPattern(), Pattern.DOTALL));
         });
