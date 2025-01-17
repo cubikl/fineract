@@ -34,7 +34,7 @@ jib {
     }
 
     to {
-        image = 'fineract-custom'
+        image = 'beestech/cubikl/fineract-custom'
         tags = [
             "${project.version}",
             'latest'
@@ -51,7 +51,7 @@ jib {
             '-Djava.security.egd=file:/dev/./urandom'
         ]
         ports = ['8080/tcp', '8443/tcp']
-        labels = [maintainer: 'Aleksandar Vidakovic <aleks@apache.org>']
+        labels = [maintainer: 'sb ']
         user = 'nobody:nogroup'
     }
 
