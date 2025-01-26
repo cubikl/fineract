@@ -34,7 +34,7 @@ jib {
     }
 
     to {
-        image = 'beestech/cubikl/fineract-custom'
+        image = 'cubikl/fineract'
         tags = [
             "${project.version}",
             'latest'

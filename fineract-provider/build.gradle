@@ -246,14 +246,14 @@ jib {
         image = 'azul/zulu-openjdk-alpine:17'
         platforms {
             platform {
-                architecture = System.getProperty("os.arch").equals("aarch64")?"arm64":"amd64"
+                architecture = "arm64"
                 os = 'linux'
             }
         }
     }
 
     to {
-        image = 'fineract'
+        image = 'cubikl/fineract'
         tags = [
             "${project.version}",
             'latest'
@@ -271,7 +271,7 @@ jib {
             '-Djava.security.egd=file:/dev/./urandom'
         ]
         ports = ['8080/tcp', '8443/tcp']
-        labels = [maintainer: 'Aleksandar Vidakovic <aleks@apache.org>']
+        labels = [maintainer: 'sb']
         user = 'nobody:nogroup'
     }
 
