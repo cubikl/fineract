@@ -246,6 +246,10 @@ jib {
         image = 'azul/zulu-openjdk-alpine:17'
         platforms {
             platform {
+                architecture = "amd64"
+                os = 'linux'
+            }
+            platform {
                 architecture = "arm64"
                 os = 'linux'
             }
@@ -253,7 +257,7 @@ jib {
     }
 
     to {
-        image = 'cubikl/fineract'
+        image = '619071307800.dkr.ecr.us-east-1.amazonaws.com/cubikl/fineract'
         tags = [
             "${project.version}",
             'latest'
