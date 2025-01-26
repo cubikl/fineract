@@ -192,6 +192,7 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok'
     annotationProcessor 'org.mapstruct:mapstruct-processor'
 
+    implementation 'software.amazon.awssdk:auth:2.30.6'
     implementation 'ch.qos.logback.contrib:logback-json-classic'
     implementation 'ch.qos.logback.contrib:logback-jackson'
     implementation 'org.codehaus.janino:janino'

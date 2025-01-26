@@ -241,6 +241,7 @@ bootJar {
     dependsOn resolve
 }
 
+
 jib {
     from {
         image = 'azul/zulu-openjdk-alpine:17'
@@ -262,6 +263,11 @@ jib {
             "${project.version}",
             'latest'
         ]
+        auth {
+            def credentialsProvider = ProfileCredentialsProvider.builder().profileName("cubikl").build()
+            username = credentialsProvider.resolveCredentials().accessKeyId()
+            password = credentialsProvider.resolveCredentials().secretAccessKey()
+        }
     }
 
     container {
